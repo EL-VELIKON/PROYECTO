@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="contenido">
+        <h1>Formulario de Préstamo de Equipos</h1>
+        <form id="miFormulario">
+
+            <label for="nombreProfesor">Nombre del Profesor:</label>
+            <input type="text" id="nombreProfesor" name="nombreProfesor" required>
+            <br>
+
+            <label for="nombreEquipo">Nombre del Equipo:</label>
+            <input type="text" id="nombreEquipo" name="nombreEquipo" required>
+
+            <button type="button" onclick="actualizarTabla()">Agregar</button>
+            <br>
+
+            <table id="tablaEquipos">
+                <tr>
+                    <th>Profesor</th>
+                    <th>Equipo</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                <!-- Filas de equipos se agregarán aquí -->
+            </table>
+
+        </form>
+
+        <script>
+            const equipos = [];
+
+            function actualizarTabla() {
+                var tabla = document.getElementById('tablaEquipos');
+                var nombreProfesor = document.getElementById('nombreProfesor').value;
+                //const nombreProfesorDisplay = document.getElementById('nombreProfesorDisplay');
+                var nombreEquipo = document.getElementById('nombreEquipo').value;
+                var estado = "✓ Disponible";
+
+                var fila = tabla.insertRow(-1);
+                var celda1 = fila.insertCell(0);
+                var celda2 = fila.insertCell(1);
+                var celda3 = fila.insertCell(2);
+                var celda4 = fila.insertCell(3);
+
+                celda1.innerHTML = nombreProfesor;
+                celda2.innerHTML = nombreEquipo;
+                celda3.innerHTML = `<select>
+            <option value="${estado}">${estado}</option>
+            <option value="${estado === 'x No Disponible' ? '✓ Disponible' : 'x No Disponible'}">${estado === '✓ Disponible' ? 'x No Disponible' : '✓ Disponible'}</option>
+            </select>`
+            celda4.innerHTML = '<button onclick="borrarEquipo(this)">Borrar</button>'
+
+            document.getElementById("nombreProfesor").value = " ";
+            document.getElementById("nombreEquipo").value = " ";
+            }
+
+            function borrarEquipo(button) {
+                const fila = button.parentNode.parentNode;
+                fila.parentNode.removeChild(fila);
+            }
+
+        </script>
+        </div>
+    </body>
+</html>
+
